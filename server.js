@@ -1,5 +1,5 @@
 const path = require('path');
-const fs = require('fs');
+
 const express = require('express');
 // Import express-session to make connection to sequelize database
 const session = require('express-session');
