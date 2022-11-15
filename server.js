@@ -1,4 +1,5 @@
 const path = require('path');
+const fs = require('fs');
 const express = require('express');
 // Import express-session to make connection to sequelize database
 const session = require('express-session');
@@ -45,5 +46,5 @@ app.use(routes);
 
 // turn on connection to db and server
 sequelize.sync({ force: false }).then(() => {
-  app.listen(PORT, () => console.log(`It is now listening at port ${port}!!!`));
+  app.listen(PORT, () => console.log(`It is now listening at port ${PORT}!!!`));
 });
