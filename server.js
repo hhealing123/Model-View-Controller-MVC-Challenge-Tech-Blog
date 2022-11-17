@@ -4,12 +4,11 @@ const express = require('express');
 const session = require('express-session');
 // Import express-handlebars to allow use of handlebars
 const exphbs = require('express-handlebars');
-
+// Import sequelize connection, sequelize store, helpers, and routes
 const routes = require('./controllers');
 const sequelize = require('./config/connection');
 // Import Helper function which will help format date
 const helpers = require('./utils/helpers');
-
 // Create a new sequelize store using the express-session package
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
 
@@ -18,13 +17,13 @@ const PORT = process.env.PORT || 3001;
 
 // Configure and link a session object with the sequelize store
 const sess = {
-    secret: 'Super secret secret',
+    secret: 'MVC Tech Blog',
     cookie: {},
     resave: false,
     saveUninitialized: true,
     store: new SequelizeStore({
-      db: sequelize
-    })
+      db: sequelize,
+    }),
 };
 
 // Add express-session and store as Express.js middleware
