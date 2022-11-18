@@ -37,5 +37,6 @@
     "routes": "^2.1.0",
     "sequelize": "^6.24.0",
     "session": "^0.1.0"
-  }
+  },
+  "engines": {"node": "16.16.0"}
 }
