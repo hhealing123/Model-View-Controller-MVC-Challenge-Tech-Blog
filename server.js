@@ -33,14 +33,8 @@ app.use(session(sess));
 const hbs = exphbs.create({ helpers });
 
 // Set Handlebars as the default template engine
-app.set("view engine", "hbs");
-app.engine(
-"hbs",
-handlebars({
-layoutsDir: __dirname + "/views/layouts",
-extname: "hbs",
-})
-);
+app.engine('handlebars', hbs.engine);
+app.set('view engine', 'hbs');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
