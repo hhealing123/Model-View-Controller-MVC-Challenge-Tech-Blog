@@ -18,7 +18,12 @@ const PORT = process.env.PORT || 3001;
 // Configure and link a session object with the sequelize store
 const sess = {
     secret: 'MVC Tech Blog',
-    cookie: {},
+    cookie: {
+      maxAge: 300000,
+      httpOnly: true,
+      secure: false,
+      sameSite: 'strict',
+    },
     resave: false,
     saveUninitialized: true,
     store: new SequelizeStore({
@@ -29,22 +34,20 @@ const sess = {
 // Add express-session and store as Express.js middleware
 app.use(session(sess));
 
-const hbs = exphbs.create({ helpers });
-
 // Set Handlebars as the default template engine
-app.engine('handlebars', hbs.engine);
+app.engine('handlebars', exphbs({ defaultLayout: 'main', helpers }));
 app.set('view engine', 'handlebars');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(require('./controllers/'));
+
 // This will turn on the routes
 app.use(routes);
 
 // Turn on connection to db and server
 sequelize.sync({ force: false }).then(() => {
-  app.listen(PORT, () => {
-    console.log(`Port initiated. Now listening at ${PORT}!`);
-  });
+  app.listen(PORT, () => console.log(`Port initiated. Now listening at ${PORT}!`));
 });
